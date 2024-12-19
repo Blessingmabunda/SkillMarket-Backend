@@ -21,14 +21,15 @@ public class Startup
         // Configure MongoDB settings
         services.Configure<UserMongoDBSettings>(
             Configuration.GetSection(nameof(UserMongoDBSettings)));
-        services.Configure<RoomMongoDBSettings>(
-            Configuration.GetSection(nameof(RoomMongoDBSettings)));
+           services.Configure<SkillOrTalentMongoDBSettings>(
+             Configuration.GetSection("SkillOrTalentMongoDBSettings")
+           );
 
         // Register repositories and services
         services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<IUserService, UserService>();
-        services.AddSingleton<IRoomRepository, RoomRepository>();
-        services.AddSingleton<IRoomService, RoomService>();
+        services.AddScoped<ISkillOrTalentRepository, SkillOrTalentRepository>();
+        services.AddScoped<ISkillOrTalentService, SkillOrTalentService>();
 
         // Add controllers
         services.AddControllers();

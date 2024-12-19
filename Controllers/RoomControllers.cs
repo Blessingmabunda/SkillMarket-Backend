@@ -1,74 +1,79 @@
 using Microsoft.AspNetCore.Mvc;
 using RoomApi.Models;
 using MongoDB.Bson;
-
 using System.Threading.Tasks;
 
 namespace RoomApi.Controllers
 {
     [ApiController]
-    [Route("api/")]
-    public class RoomController : ControllerBase
+    [Route("api/skills-or-talents")]
+    public class SkillOrTalentController : ControllerBase
     {
-        private readonly IRoomService _roomService;
+        private readonly ISkillOrTalentService _skillOrTalentService;
 
-        public RoomController(IRoomService roomService)
+        public SkillOrTalentController(ISkillOrTalentService skillOrTalentService)
         {
-            _roomService = roomService;
+            _skillOrTalentService = skillOrTalentService;
         }
 
-        [HttpPost("register-room")]
-        public async Task<ActionResult<Room>> RegisterRoom(Room room)
+        // Register a new skill or talent
+        [HttpPost("register")]
+        public async Task<ActionResult<SkillOrTalent>> RegisterSkill(SkillOrTalent skillOrTalent)
         {
-            var registeredRoom = await _roomService.RegisterAsync(room);
-            return CreatedAtAction(nameof(RegisterRoom), new { id = registeredRoom.Location }, registeredRoom);
+            var registeredSkill = await _skillOrTalentService.RegisterAsync(skillOrTalent);
+            return CreatedAtAction(nameof(RegisterSkill), new { id = registeredSkill.Id }, registeredSkill);
         }
 
-        [HttpGet("rooms/{location}")]
-        public async Task<ActionResult> GetRoomByLocation(string location)
+        // Get skill or talent by category
+        [HttpGet("{category}")]
+        public async Task<ActionResult<SkillOrTalent>> GetSkillByCategory(string category)
         {
-            var room = await _roomService.GetByLocationAsync(location);
-            if (room == null)
+            var skillOrTalent = await _skillOrTalentService.GetByCategoryAsync(category);
+            if (skillOrTalent == null)
             {
-                return NotFound(); // Room not found
+                return NotFound(); // Skill or talent not found
             }
-            return Ok(room); // Return room
+            return Ok(skillOrTalent); // Return skill or talent
         }
 
-        [HttpPut("update-room")]
-        public async Task<ActionResult<Room>> UpdateRoom(Room room)
+        // Update an existing skill or talent
+        [HttpPut("update")]
+        public async Task<ActionResult<SkillOrTalent>> UpdateSkill(SkillOrTalent skillOrTalent)
         {
-            var updatedRoom = await _roomService.UpdateRoomAsync(room);
-            if (updatedRoom == null)
+            var updatedSkill = await _skillOrTalentService.UpdateSkillAsync(skillOrTalent);
+            if (updatedSkill == null)
             {
-                return NotFound(); // Room not found
+                return NotFound(); // Skill or talent not found
             }
-            return Ok(updatedRoom); // Return updated room
+            return Ok(updatedSkill); // Return updated skill or talent
         }
 
-        [HttpDelete("rooms/delete/{id}")]
-        public async Task<ActionResult> DeleteRoom(string id)
+        // Delete a skill or talent by ID
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteSkill(string id)
         {
-            await _roomService.DeleteRoomAsync(id);
+            await _skillOrTalentService.DeleteSkillAsync(id);
             return NoContent(); // Successfully deleted
         }
 
-        [HttpGet("get-all-rooms")]
-        public async Task<ActionResult> GetAllRooms()
+        // Get all skills or talents
+        [HttpGet("all")]
+        public async Task<ActionResult> GetAllSkills()
         {
-            var rooms = await _roomService.GetAllRoomsAsync();
-            return Ok(rooms); // Return all rooms
+            var skillsOrTalents = await _skillOrTalentService.GetAllSkillsAsync();
+            return Ok(skillsOrTalents); // Return all skills or talents
         }
 
-        [HttpGet("get-rooms-by/{userId}")]
-        public async Task<ActionResult> GetRoomByUser(string userId)
+        // Get a skill or talent by user ID
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult> GetSkillByUser(string userId)
         {
-            var room = await _roomService.GetByUserAsync(userId);
-            if (room == null)
+            var skillOrTalent = await _skillOrTalentService.GetByUserAsync(userId);
+            if (skillOrTalent == null)
             {
-                return NotFound(); // Room not found
+                return NotFound(); // Skill or talent not found
             }
-            return Ok(room); // Return room
+            return Ok(skillOrTalent); // Return skill or talent
         }
     }
 }

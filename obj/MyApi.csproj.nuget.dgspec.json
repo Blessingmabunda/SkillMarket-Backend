@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/moraswiphineaslekgothoane/Desktop/RooMingle/RooMingle-Backend/MyApi.csproj": {}
+    "/Users/moraswiphineaslekgothoane/Desktop/SkillMarket-Backend/MyApi.csproj": {}
   },
   "projects": {
-    "/Users/moraswiphineaslekgothoane/Desktop/RooMingle/RooMingle-Backend/MyApi.csproj": {
+    "/Users/moraswiphineaslekgothoane/Desktop/SkillMarket-Backend/MyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/moraswiphineaslekgothoane/Desktop/RooMingle/RooMingle-Backend/MyApi.csproj",
+        "projectUniqueName": "/Users/moraswiphineaslekgothoane/Desktop/SkillMarket-Backend/MyApi.csproj",
         "projectName": "MyApi",
-        "projectPath": "/Users/moraswiphineaslekgothoane/Desktop/RooMingle/RooMingle-Backend/MyApi.csproj",
+        "projectPath": "/Users/moraswiphineaslekgothoane/Desktop/SkillMarket-Backend/MyApi.csproj",
         "packagesPath": "/Users/moraswiphineaslekgothoane/.nuget/packages/",
-        "outputPath": "/Users/moraswiphineaslekgothoane/Desktop/RooMingle/RooMingle-Backend/obj/",
+        "outputPath": "/Users/moraswiphineaslekgothoane/Desktop/SkillMarket-Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/moraswiphineaslekgothoane/.nuget/NuGet/NuGet.Config"
