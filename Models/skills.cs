@@ -16,6 +16,7 @@ public class SkillOrTalent
     public int ProficiencyLevel { get; set; } = 1;  // Default to level 1 (beginner)
     public DateTime DateAcquired { get; set; } = DateTime.MinValue;  // Default to no date
     public string Category { get; set; } = string.Empty;
+    public string ProfilePicture { get; set; } = string.Empty;
     public bool IsCertified { get; set; } = false;  // Default to no certification
 
     // Add UserId to associate the skill with a user

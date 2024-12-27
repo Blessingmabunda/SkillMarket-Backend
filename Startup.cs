@@ -21,9 +21,9 @@ public class Startup
         // Configure MongoDB settings
         services.Configure<UserMongoDBSettings>(
             Configuration.GetSection(nameof(UserMongoDBSettings)));
-           services.Configure<SkillOrTalentMongoDBSettings>(
-             Configuration.GetSection("SkillOrTalentMongoDBSettings")
-           );
+        services.Configure<SkillOrTalentMongoDBSettings>(
+            Configuration.GetSection("SkillOrTalentMongoDBSettings")
+        );
 
         // Register repositories and services
         services.AddSingleton<IUserRepository, UserRepository>();
@@ -37,10 +37,10 @@ public class Startup
         // Add Swagger services for API documentation
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo 
-            { 
-                Title = "RooMingle API", 
-                Version = "v1" 
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "RooMingle API",
+                Version = "v1"
             });
         });
 
@@ -52,7 +52,7 @@ public class Startup
                 builder.WithOrigins("http://localhost:5173")  // Frontend URL
                        .AllowAnyHeader()
                        .AllowAnyMethod()
-                       .AllowCredentials();  // Include credentials if necessary (e.g., cookies or headers)
+                       .AllowCredentials();  // Allow credentials (cookies, etc.)
             });
         });
     }
@@ -71,15 +71,20 @@ public class Startup
             app.UseHsts();
         }
 
-        // Apply CORS policy
+        // Apply CORS policy before routing
         app.UseCors("AllowFrontend");
 
         // Middleware configuration
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        // Ensure CORS is before routing
         app.UseRouting();
+
+        // Authorization (if required)
         app.UseAuthorization();
 
+        // Configure endpoints (make sure controllers are mapped)
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
